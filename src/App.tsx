@@ -25,53 +25,56 @@ function App() {
 
   const house = [
     {
-      nome: () => {
+      name: () => {
         setPick("Grifinória");
       },
-      Anuncio: () => {
+      announce: () => {
         grifinoriaAnnounce.play();
       },
       logo: () => {
         setLogo(logoGrifinoria);
       },
-    },{
-      nome: () => {
+    },
+    {
+      name: () => {
         setPick("Sonserina");
       },
-      Anuncio: () => {
+      announce: () => {
         sonserinaAnnounce.play();
       },
       logo: () => {
         setLogo(logoSonserina);
       },
-    },{
-      nome: () => {
+    },
+    {
+      name: () => {
         setPick("Corvinal");
       },
-      Anuncio: () => {
+      announce: () => {
         corvinalAnnounce.play();
       },
       logo: () => {
         setLogo(logoCorvinal);
       },
-    },{
-      nome: () => {
+    },
+    {
+      name: () => {
         setPick("Lufa-Lufa");
       },
-      Anuncio: () => {
+      announce: () => {
         lufalufaAnnounce.play();
       },
       logo: () => {
         setLogo(logoLufaLufa);
       },
     },
-  ];  
+  ];
 
   function houseSort() {
     const sort = Math.floor(Math.random() * 4);
-    house[sort].nome();
+    house[sort].name();
     house[sort].logo();
-    house[sort].Anuncio();    
+    house[sort].announce();
   }
 
   function reset() {
@@ -89,33 +92,41 @@ function App() {
       <div className="card">
         <div className="house">
           <button
-            className="button"
+            className="button grifinoria"
             onClick={() => {
-              grifinoriaAnnounce.play();
+              house[0].announce();
+              house[0].logo();
+              house[0].name();
             }}
           >
             Grifinória
           </button>
           <button
-            className="button"
+            className="button sonserina"
             onClick={() => {
-              sonserinaAnnounce.play();
+              house[1].announce();
+              house[1].logo();
+              house[1].name();
             }}
           >
             Sonserina
           </button>
           <button
-            className="button"
+            className="button corvinal"
             onClick={() => {
-              corvinalAnnounce.play();
+              house[2].announce();
+              house[2].logo();
+              house[2].name();
             }}
           >
             Corvinal
           </button>
           <button
-            className="button"
+            className="button lufalufa"
             onClick={() => {
-              lufalufaAnnounce.play();
+              house[3].announce();
+              house[3].logo();
+              house[3].name();
             }}
           >
             Lufa-Lufa
@@ -125,14 +136,14 @@ function App() {
           Aleatório!
         </button>
         <img src={logo} className="logo-house" alt="Logo-Casas" />
-        <div className="choosed">{picked}</div>
+        <div className="picked">{picked}</div>
         <button className="button" onClick={reset}>
           Reset
         </button>
       </div>
-      <div>
+      <div className="player">
         <ReactAudioPlayer src={musicTheme} controls loop autoPlay />
-      </div>      
+      </div>
     </>
   );
 }
