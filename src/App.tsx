@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
-import useSound from "use-sound";
 import sortingHatLogo from "./assets/pictures/sorting-hat-logo.png";
 import musicTheme from "./assets/audios/sorting-hat-ceremony.mp3";
 import corvinal from "./assets/audios/corvinal.mp3";
@@ -19,26 +18,60 @@ function App() {
   const [picked, setPick] = useState("Escolha a Casa");
   const [logo, setLogo] = useState(logoHogwarts);
 
-  const [playGrifinoria] = useSound(grifinoria);
-  const [playSonserina] = useSound(sonserina);
-  const [playCorvinal] = useSound(corvinal);
-  const [playLufaLufa] = useSound(lufalufa);
+  const grifinoriaAnnounce = new Audio(grifinoria);
+  const sonserinaAnnounce = new Audio(sonserina);
+  const corvinalAnnounce = new Audio(corvinal);
+  const lufalufaAnnounce = new Audio(lufalufa);
+
+  const house = [
+    {
+      nome: () => {
+        setPick("Grifinória");
+      },
+      Anuncio: () => {
+        grifinoriaAnnounce.play();
+      },
+      logo: () => {
+        setLogo(logoGrifinoria);
+      },
+    },{
+      nome: () => {
+        setPick("Sonserina");
+      },
+      Anuncio: () => {
+        sonserinaAnnounce.play();
+      },
+      logo: () => {
+        setLogo(logoSonserina);
+      },
+    },{
+      nome: () => {
+        setPick("Corvinal");
+      },
+      Anuncio: () => {
+        corvinalAnnounce.play();
+      },
+      logo: () => {
+        setLogo(logoCorvinal);
+      },
+    },{
+      nome: () => {
+        setPick("Lufa-Lufa");
+      },
+      Anuncio: () => {
+        lufalufaAnnounce.play();
+      },
+      logo: () => {
+        setLogo(logoLufaLufa);
+      },
+    },
+  ];  
 
   function houseSort() {
     const sort = Math.floor(Math.random() * 4);
-    if (sort === 0) {
-      setPick("Grifinória");
-      setLogo(logoGrifinoria);      
-    } else if (sort === 1) {
-      setPick("Sonserina");
-      setLogo(logoSonserina);
-    } else if (sort === 2) {
-      setPick("Corvinal");
-      setLogo(logoCorvinal);
-    } else {
-      setPick("Lufa-Lufa");
-      setLogo(logoLufaLufa);
-    }
+    house[sort].nome();
+    house[sort].logo();
+    house[sort].Anuncio();    
   }
 
   function reset() {
@@ -55,23 +88,43 @@ function App() {
 
       <div className="card">
         <div className="house">
-        <button className="button" onClick={playGrifinoria}>
-          Grifinória
-        </button>
-        <button className="button" onClick={playSonserina}>
-          Sonserina
-        </button>
-        <button className="button" onClick={playCorvinal}>
-          Corvinal
-        </button>
-        <button className="button" onClick={playLufaLufa}>
-          Lufa-Lufa
-        </button>
-        </div>        
+          <button
+            className="button"
+            onClick={() => {
+              grifinoriaAnnounce.play();
+            }}
+          >
+            Grifinória
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              sonserinaAnnounce.play();
+            }}
+          >
+            Sonserina
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              corvinalAnnounce.play();
+            }}
+          >
+            Corvinal
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              lufalufaAnnounce.play();
+            }}
+          >
+            Lufa-Lufa
+          </button>
+        </div>
         <button className="button" onClick={houseSort}>
           Aleatório!
         </button>
-        <img src={logo} className='logo-house' alt="Logo-Casas" />
+        <img src={logo} className="logo-house" alt="Logo-Casas" />
         <div className="choosed">{picked}</div>
         <button className="button" onClick={reset}>
           Reset
@@ -79,7 +132,7 @@ function App() {
       </div>
       <div>
         <ReactAudioPlayer src={musicTheme} controls loop autoPlay />
-      </div>
+      </div>      
     </>
   );
 }
