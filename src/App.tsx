@@ -14,7 +14,7 @@ import logoLufaLufa from "./assets/pictures/lufa-lufa-img.png";
 
 import "./App.css";
 
-function App() {
+export default function App() {
   const [picked, setPick] = useState("Escolha a Casa");
   const [logo, setLogo] = useState(logoHogwarts);
 
@@ -147,5 +147,3 @@ function App() {
     </>
   );
 }
-
-export default App;
